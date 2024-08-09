@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <!-- Define o conjunto de caracteres usado na página -->
+    <meta charset="utf-8">
+    <!-- Título da página que aparece na aba do navegador -->
+    <title>Calculadora</title>
+    <!-- Inclui o CSS do Bootstrap para estilização da página -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Início do formulário da calculadora -->
+    <form>
+        <!-- Div para agrupar o rótulo e o campo de entrada para o Valor A -->
+        <div class="mb-3">
+            <!-- Rótulo que descreve o campo de entrada para o Valor A -->
+            <label for="v1" class="form-label">Valor A</label>
+            <!-- Campo de entrada para o Valor A, do tipo numérico -->
+            <input type="number" id="v1" class="form-control"/>
+        </div>
+        <!-- Div para agrupar o rótulo e o campo de entrada para o Valor B -->
+        <div class="mb-3">
+            <!-- Rótulo que descreve o campo de entrada para o Valor B -->
+            <label for="v2" class="form-label">Valor B</label>
+            <!-- Campo de entrada para o Valor B, do tipo numérico -->
+            <input type="number" id="v2" class="form-control"/>
+        </div>
+        <!-- Div para agrupar o rótulo e a lista suspensa para selecionar a operação -->
+        <div class="mb-3">
+            <!-- Rótulo que descreve a lista suspensa para selecionar a operação -->
+            <label for="oper" class="form-label">Operação</label>
+            <!-- Lista suspensa que permite ao usuário escolher a operação a ser realizada -->
+            <select id="oper" class="form-select">
+                <!-- Opções de operações que o usuário pode selecionar -->
+                <option value="0">Soma</option>
+                <option value="1">Subtração</option>
+                <option value="2">Multiplicação</option>
+                <option value="3">Divisão</option>
+                <option value="4">Potência</option>
+            </select>
+        </div>
+        <!-- Botão que, quando clicado, executa a operação selecionada -->
+        <button type="button" class="btn btn-primary" onclick="executar()">Executar</button>
+    </form>
+
+    <!-- Div onde o resultado da operação será exibido -->
+    <div id="resp" class="mt-3">O resultado aparece aqui</div>
+
+    <!-- Inclusão de um arquivo JavaScript externo (pode conter funções adicionais ou módulos) -->
+    <script src="ROT_MOD1-NC3.js"></script>
+
+    <!-- Script JavaScript para processar os valores e executar as operações -->
+    <script>
+        // Função que é executada quando o botão "Executar" é clicado
+        const executar = () => {
+            // Captura e converte os valores inseridos nos campos de entrada
+            const a = parseFloat(document.getElementById("v1").value);
+            const b = parseFloat(document.getElementById("v2").value);
+            // Captura o valor da operação selecionada na lista suspensa
+            const oper = parseInt(document.getElementById("oper").value);
+
+            // Variável que armazenará o resultado da operação
+            let resultado;
+
+            // Estrutura de controle que decide qual operação será realizada com base na escolha do usuário
+            switch (oper) {
+                case 0:
+                    resultado = somar(a, b); // Chama a função de soma
+                    break;
+                case 1:
+                    resultado = subtrair(a, b); // Chama a função de subtração
+                    break;
+                case 2:
+                    resultado = multiplicar(a, b); // Chama a função de multiplicação
+                    break;
+                case 3:
+                    resultado = dividir(a, b); // Chama a função de divisão
+                    break;
+                case 4:
+                    resultado = exponencial(a, b); // Chama a função de exponenciação
+                    break;
+                default:
+                    resultado = 'Operação inválida'; // Caso a operação seja inválida, exibe essa mensagem
+            }
+
+            // Exibe o resultado da operação na div com o id "resp"
+            document.getElementById("resp").innerHTML = `O resultado da operação é ${resultado}`;
+        }
+
+        // Função que realiza a soma de dois valores
+        function somar(a, b) { return a + b; }
+
+        // Função que realiza a subtração de dois valores
+        function subtrair(a, b) { return a - b; }
+
+        // Função que realiza a multiplicação de dois valores
+        function multiplicar(a, b) { return a * b; }
+
+        // Função que realiza a divisão de dois valores
+        function dividir(a, b) {
+            // Verifica se o divisor é zero e, se for, emite um alerta e retorna "Indefinido"
+            if (b == 0) {
+                alert("Divisão por Zero!!!");
+                return "Indefinido";
+            }
+            return a / b; // Retorna o resultado da divisão
+        }
+
+        // Função que realiza a exponenciação (a elevado a b)
+        function exponencial(a, b) {
+            return Math.pow(a, b); // Usa a função Math.pow() para calcular a potência
+        }
+    </script>
+</body>
+</html>
